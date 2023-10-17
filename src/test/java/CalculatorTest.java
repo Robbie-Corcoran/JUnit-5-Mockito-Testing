@@ -54,7 +54,7 @@ public class CalculatorTest {
 
 //        Arrange   // Given
         int dividend = 4;
-        int divisor = 2;
+        int divisor = 0;
         String expectedException = "/ by zero";
 
 //        Act & Assert   // When
