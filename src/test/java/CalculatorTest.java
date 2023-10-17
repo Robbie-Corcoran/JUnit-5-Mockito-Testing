@@ -1,5 +1,10 @@
 import com.rawtech.Calculator;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,21 +72,27 @@ public class CalculatorTest {
         assertEquals(expectedException, actualException.getMessage(), "Unexpected exception message");
     }
 
-    @DisplayName("32-10=22")
-    @Test
-    void testIntegerSubtraction_WhenSubtractingTwoFromFour_ShouldReturnTwo() {
-        System.out.println("Running 32-10=22");
+    @DisplayName("Test Integer Subtraction [minuend, subtrahend, expectedResult]")
+    @ParameterizedTest
+    @MethodSource("integerSubtractionInputParameters")
+    void testIntegerSubtraction(int minuend, int subtrahend, int expectedResult) {
+        System.out.println("Running Test Integer Subtraction: " +minuend+ " - " +subtrahend+ " = " +expectedResult);
+//        Arrange
 
-//        Arrange   // Given
-        int minuend = 32;
-        int subtrahend = 10;
-        int expectedResult = 22;
 
-//        Act   // When
+//        Act
         int actualResult = calculator.integerSubtraction(minuend, subtrahend);
 
-//        Assert    // Then
+//        Assert
         assertEquals(expectedResult, actualResult, () -> minuend + " - " + subtrahend + " did not produce " + expectedResult );
+    }
+
+    private static Stream<Arguments> integerSubtractionInputParameters() {
+        return Stream.of(
+                Arguments.of(32, 10, 22),
+                Arguments.of(54, 5, 49),
+                Arguments.of(1234, 1230, 4)
+        );
     }
 
 }
