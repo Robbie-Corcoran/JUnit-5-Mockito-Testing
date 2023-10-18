@@ -20,8 +20,8 @@ public class DemoRepeatedTest {
             RepetitionInfo repetitionInfo,
             TestInfo testInfo
     ) {
-        System.out.println("Running " +testInfo.getTestMethod().get().getName());
-        System.out.println("Repetition No." +repetitionInfo.getCurrentRepetition()+ " of " +repetitionInfo.getTotalRepetitions());
+        System.out.println("Running " + testInfo.getTestMethod().get().getName());
+        System.out.println("Repetition No." + repetitionInfo.getCurrentRepetition() + " of " + repetitionInfo.getTotalRepetitions());
 
 //        Arrange   // Given
         int dividend = 4;

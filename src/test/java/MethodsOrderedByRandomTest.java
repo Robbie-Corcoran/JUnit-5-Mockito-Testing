@@ -8,21 +8,21 @@ public class MethodsOrderedByRandomTest {
 
     @Test
     void testA(TestInfo testInfo) {
-        System.out.println("Running " +testInfo.getTestMethod().get().getName());
+        System.out.println("Running " + testInfo.getTestMethod().get().getName());
     }
 
     @Test
     void testB(TestInfo testInfo) {
-        System.out.println("Running " +testInfo.getTestMethod().get().getName());
+        System.out.println("Running " + testInfo.getTestMethod().get().getName());
     }
 
     @Test
     void testC(TestInfo testInfo) {
-        System.out.println("Running " +testInfo.getTestMethod().get().getName());
+        System.out.println("Running " + testInfo.getTestMethod().get().getName());
     }
 
     @Test
     void testD(TestInfo testInfo) {
-        System.out.println("Running " +testInfo.getTestMethod().get().getName());
+        System.out.println("Running " + testInfo.getTestMethod().get().getName());
     }
 }

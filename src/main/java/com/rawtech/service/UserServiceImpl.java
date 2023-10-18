@@ -1,7 +1,6 @@
 package com.rawtech.service;
 
 import com.rawtech.io.UsersDatabase;
-import com.rawtech.io.UsersDatabaseMapImpl;
 
 import java.util.Map;
 import java.util.UUID;
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map updateUser(String userId, Map userDetails) {
         Map existingUser = usersDatabase.find(userId);
-        if(existingUser == null) throw new IllegalArgumentException("User not found");
+        if (existingUser == null) throw new IllegalArgumentException("User not found");
 
         existingUser.put("firstName", userDetails.get("firstName"));
         existingUser.put("lastName", userDetails.get("lastName"));
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String userId) {
         Map existingUser = usersDatabase.find(userId);
-        if(existingUser == null) throw new IllegalArgumentException("User not found");
+        if (existingUser == null) throw new IllegalArgumentException("User not found");
 
         usersDatabase.delete(userId);
     }

@@ -64,7 +64,7 @@ public class UserServiceImplTest {
         newUserDetails.put("lastName", "Jones");
 
 //        Act
-        Map updatedUserDetails = userService.updateUser(createdUserId , newUserDetails);
+        Map updatedUserDetails = userService.updateUser(createdUserId, newUserDetails);
 
 //        Assert
         assertEquals(newUserDetails.get("firstName"), updatedUserDetails.get("firstName"), "Returned values of user's first name is incorrect.");

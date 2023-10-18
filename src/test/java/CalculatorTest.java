@@ -1,7 +1,9 @@
 import com.rawtech.Calculator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.*;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Test Arithmetic in Calculator Class")
 public class CalculatorTest {
 
-//    Naming Tests: test<System Under Test>_<Condition Or State Change>_<Expected Result>
+    //    Naming Tests: test<System Under Test>_<Condition Or State Change>_<Expected Result>
     Calculator calculator;
 
     @BeforeAll
@@ -21,6 +23,14 @@ public class CalculatorTest {
     @AfterAll
     static void cleanup() {
         System.out.println("Executing @AfterAll method.");
+    }
+
+    private static Stream<Arguments> integerSubtractionInputParameters() {
+        return Stream.of(
+                Arguments.of(32, 10, 22),
+                Arguments.of(54, 5, 49),
+                Arguments.of(1234, 1230, 4)
+        );
     }
 
     @BeforeEach
@@ -71,7 +81,6 @@ public class CalculatorTest {
         assertEquals(expectedException, actualException.getMessage(), "Unexpected exception message");
     }
 
-
     @DisplayName("Test Integer Subtraction [minuend, subtrahend, expectedResult]")
     @ParameterizedTest
 //    @MethodSource("integerSubtractionInputParameters")
@@ -83,7 +92,7 @@ public class CalculatorTest {
 
     @CsvFileSource(resources = "/integerSubtraction.csv")
     void testIntegerSubtraction(int minuend, int subtrahend, int expectedResult) {
-        System.out.println("Running Test Integer Subtraction: " +minuend+ " - " +subtrahend+ " = " +expectedResult);
+        System.out.println("Running Test Integer Subtraction: " + minuend + " - " + subtrahend + " = " + expectedResult);
 //        Arrange
 
 
@@ -91,22 +100,14 @@ public class CalculatorTest {
         int actualResult = calculator.integerSubtraction(minuend, subtrahend);
 
 //        Assert
-        assertEquals(expectedResult, actualResult, () -> minuend + " - " + subtrahend + " did not produce " + expectedResult );
-    }
-
-    private static Stream<Arguments> integerSubtractionInputParameters() {
-        return Stream.of(
-                Arguments.of(32, 10, 22),
-                Arguments.of(54, 5, 49),
-                Arguments.of(1234, 1230, 4)
-        );
+        assertEquals(expectedResult, actualResult, () -> minuend + " - " + subtrahend + " did not produce " + expectedResult);
     }
 
     @DisplayName("Test the firstName is not null")
     @ParameterizedTest
     @ValueSource(strings = {"John", "Tom", "Kate"})
     void valueSourceDemonstration(String firstName) {
-        System.out.println("Testing: " +firstName);
+        System.out.println("Testing: " + firstName);
         assertNotNull(firstName);
     }
 }
