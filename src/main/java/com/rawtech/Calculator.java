@@ -2,7 +2,7 @@ package com.rawtech;
 
 public class Calculator {
 
-    public int integerDivision (int dividend, int divisor) {
+    public int integerDivision(int dividend, int divisor) {
         return dividend / divisor;
     }
 
