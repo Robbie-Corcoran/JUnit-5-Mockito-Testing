@@ -1,30 +1,41 @@
 package com.rawtech.mockito;
 
-import com.rawtech.tdd.UserService;
-import com.rawtech.tdd.UserServiceImpl;
-import com.rawtech.tdd.model.User;
+import com.rawtech.mockito.data.UserRepository;
+import com.rawtech.mockito.service.UserService;
+import com.rawtech.mockito.service.UserServiceImpl;
+import com.rawtech.mockito.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-    com.rawtech.tdd.UserService userService;
+    @InjectMocks
+    UserServiceImpl userService;
+    @Mock
+    UserRepository userRepository;
     String firstName;
     String lastName;
     String email;
+    String password;
+    String repeatPassword;
 
     @BeforeEach
     void setup() {
-        userService = new com.rawtech.tdd.UserServiceImpl();
-
         firstName = "Robbie";
         lastName = "Corcoran";
         email = "robbie@robbie.com";
+        password = "123456789";
+        repeatPassword = "123456789";
     }
 
     @DisplayName("User object created and details correct.")
@@ -34,7 +45,7 @@ public class UserServiceTest {
 
 
 //        Act
-        User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString());
+        User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword);
 
 //        Assert
         assertNotNull(user, "createUser() should have returned a User object");
@@ -49,14 +60,12 @@ public class UserServiceTest {
     @Test
     void testCreatUser_whenUserFirstNameIsEmpty_ThrowIllegalArgumentException() {
 //        Arrange
-        UserService userService = new UserServiceImpl();
-
         String firstName = "";
         String expectedExceptionMessage = "First name cannot be empty.";
 
 //        Act & Assert
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                userService.createUser(firstName, lastName, email, UUID.randomUUID().toString()),
+                userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword),
                 "Missing first name should throw IllegalArgumentException.");
 
 //        Assert
@@ -73,7 +82,7 @@ public class UserServiceTest {
 
 //        Act & Assert
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, ()->
-                userService.createUser(firstName, lastName, email, UUID.randomUUID().toString()),
+                userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword),
                 "Missing last name should throw IllegalArgumentException.");
 
 //        Assert
