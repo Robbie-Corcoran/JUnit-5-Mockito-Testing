@@ -1,11 +1,11 @@
 package com.rawtech.tdd.model;
 
 public class User {
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    String repeatedPassword;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String repeatedPassword;
 
     public String getFirstName() {
         return firstName;
