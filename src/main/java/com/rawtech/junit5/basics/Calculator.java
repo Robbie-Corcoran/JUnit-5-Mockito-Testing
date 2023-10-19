@@ -1,4 +1,4 @@
-package com.rawtech;
+package com.rawtech.junit5.basics;
 
 public class Calculator {
 

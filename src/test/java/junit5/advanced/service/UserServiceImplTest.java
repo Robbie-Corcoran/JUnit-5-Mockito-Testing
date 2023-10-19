@@ -1,9 +1,9 @@
-package service;
+package junit5.advanced.service;
 
-import com.rawtech.io.UsersDatabase;
-import com.rawtech.io.UsersDatabaseMapImpl;
-import com.rawtech.service.UserService;
-import com.rawtech.service.UserServiceImpl;
+import com.rawtech.junit5.advanced.io.UsersDatabase;
+import com.rawtech.junit5.advanced.io.UsersDatabaseMapImpl;
+import com.rawtech.junit5.advanced.io.service.UserService;
+import com.rawtech.junit5.advanced.io.service.UserServiceImpl;
 import org.junit.jupiter.api.*;
 
 import java.util.HashMap;

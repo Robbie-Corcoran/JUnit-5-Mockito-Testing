@@ -1,4 +1,4 @@
-package com.rawtech.io;
+package com.rawtech.junit5.advanced.io;
 
 import java.util.HashMap;
 import java.util.Map;
