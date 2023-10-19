@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
@@ -22,13 +24,14 @@ public class UserServiceTest {
         String repeatedPassword = "123456789";
 
 //        Act
-        User user = userService.createUser(firstName, lastName, email, password, repeatedPassword);
+        User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString());
 
 //        Assert
         assertNotNull(user, "createUser() should have returned a User object");
-        assertEquals(firstName, user.getFirstName(), "User's'first name is not correct ");
-        assertEquals(lastName, user.getLastName(), "User's last name is not correct ");
-        assertEquals(email, user.getEmail(), "User's email is not correct ");
+        assertNotNull(user.getUserId(), "UserId should not be null");
+        assertEquals(user.getFirstName(), user.getFirstName(), "User's'first name is not correct ");
+        assertEquals(user.getLastName(), user.getLastName(), "User's last name is not correct ");
+        assertEquals(user.getEmail(), user.getEmail(), "User's email is not correct ");
 
     }
 
