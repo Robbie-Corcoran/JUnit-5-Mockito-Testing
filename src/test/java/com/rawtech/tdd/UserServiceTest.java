@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
 
-    @DisplayName("User object created and name correct.")
+    @DisplayName("User object created and details correct.")
     @Test
-    void testCreateUser_whenUserDetailsProvided_returnUserObjectAndFirstName() {
+    void testCreateUser_whenUserDetailsProvided_returnUserObjectAndDetails() {
 //        Arrange
         UserService userService = new UserServiceImpl();
 
@@ -28,6 +28,7 @@ public class UserServiceTest {
         assertNotNull(user, "createUser() should have returned a User object");
         assertEquals(firstName, user.getFirstName(), "User's'first name is not correct ");
         assertEquals(lastName, user.getLastName(), "User's last name is not correct ");
+        assertEquals(email, user.getEmail(), "User's email is not correct ");
 
     }
 
