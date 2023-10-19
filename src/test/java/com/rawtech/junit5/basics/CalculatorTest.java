@@ -1,4 +1,4 @@
-package junit5.basics;
+package com.rawtech.junit5.basics;
 
 import com.rawtech.junit5.basics.Calculator;
 import org.junit.jupiter.api.*;

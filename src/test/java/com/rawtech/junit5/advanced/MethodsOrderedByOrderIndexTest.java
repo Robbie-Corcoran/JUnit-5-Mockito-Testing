@@ -1,4 +1,4 @@
-package junit5.advanced;
+package com.rawtech.junit5.advanced;
 
 import org.junit.jupiter.api.*;
 

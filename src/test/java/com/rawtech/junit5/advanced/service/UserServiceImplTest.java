@@ -1,4 +1,4 @@
-package junit5.advanced.service;
+package com.rawtech.junit5.advanced.service;
 
 import com.rawtech.junit5.advanced.io.UsersDatabase;
 import com.rawtech.junit5.advanced.io.UsersDatabaseMapImpl;

@@ -1,4 +1,8 @@
 package com.rawtech.tdd;
 
-public class UserService {
+import com.rawtech.tdd.model.User;
+
+public interface UserService {
+    User createUser(String firstName, String lastName, String email, String password, String repeatedPassword);
+
 }
