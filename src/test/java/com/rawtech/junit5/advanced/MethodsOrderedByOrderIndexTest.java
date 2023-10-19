@@ -1,3 +1,5 @@
+package com.rawtech.junit5.advanced;
+
 import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

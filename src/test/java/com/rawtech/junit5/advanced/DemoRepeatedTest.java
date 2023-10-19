@@ -1,4 +1,6 @@
-import com.rawtech.Calculator;
+package com.rawtech.junit5.advanced;
+
+import com.rawtech.junit5.basics.Calculator;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

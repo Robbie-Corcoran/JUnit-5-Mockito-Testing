@@ -1,4 +1,4 @@
-package ClassesOrderDemo;
+package com.rawtech.junit5.advanced.ClassesOrderDemo;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;

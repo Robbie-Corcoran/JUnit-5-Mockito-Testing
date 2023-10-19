@@ -1,4 +1,6 @@
-import com.rawtech.Calculator;
+package com.rawtech.junit5.basics;
+
+import com.rawtech.junit5.basics.Calculator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

@@ -1,10 +1,12 @@
+package com.rawtech.junit5.advanced;
+
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestMethodOrder;
 
-@TestMethodOrder(MethodOrderer.Random.class)
-public class MethodsOrderedByRandomTest {
+@TestMethodOrder(MethodOrderer.MethodName.class)
+public class MethodsOrderedByNameTest {
 
     @Test
     void testA(TestInfo testInfo) {
@@ -12,7 +14,7 @@ public class MethodsOrderedByRandomTest {
     }
 
     @Test
-    void testB(TestInfo testInfo) {
+    void testD(TestInfo testInfo) {
         System.out.println("Running " + testInfo.getTestMethod().get().getName());
     }
 
@@ -22,7 +24,7 @@ public class MethodsOrderedByRandomTest {
     }
 
     @Test
-    void testD(TestInfo testInfo) {
+    void testB(TestInfo testInfo) {
         System.out.println("Running " + testInfo.getTestMethod().get().getName());
     }
 }
