@@ -1,7 +1,6 @@
 package com.rawtech.mockito;
 
 import com.rawtech.mockito.data.UserRepository;
-import com.rawtech.mockito.service.UserService;
 import com.rawtech.mockito.service.UserServiceImpl;
 import com.rawtech.mockito.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
@@ -42,7 +42,7 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObjectAndDetails() {
 //        Arrange
-
+        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(true);
 
 //        Act
         User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword);
