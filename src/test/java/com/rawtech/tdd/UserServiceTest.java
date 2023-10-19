@@ -60,4 +60,17 @@ public class UserServiceTest {
 //        Assert
         assertEquals(expectedExceptionMessage, thrown.getMessage(), "IllegalArgumentException did not display the correct message");
     }
+
+    @Test
+    void testCreateUser_whenUserLastNameIsEmpty_ShouldThrowIllegalArgumentException() {
+//        Arrange
+        String lastName = "";
+
+//        Act & Assert
+        assertThrows(IllegalArgumentException.class, ()-> {
+            userService.createUser(firstName, lastName, email, UUID.randomUUID().toString());
+        }, "Missing last name should throw IllegalArgumentException.");
+
+//        Assert
+    }
 }
