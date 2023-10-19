@@ -1,7 +1,7 @@
 package com.rawtech.tdd;
 
 import com.rawtech.tdd.model.User;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,17 +11,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
 
+    UserService userService;
+    String firstName;
+    String lastName;
+    String email;
+
+    @BeforeEach
+    void setup() {
+        userService = new UserServiceImpl();
+
+        firstName = "Robbie";
+        lastName = "Corcoran";
+        email = "robbie@robbie.com";
+    }
+
     @DisplayName("User object created and details correct.")
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObjectAndDetails() {
 //        Arrange
-        UserService userService = new UserServiceImpl();
 
-        String firstName = "Robbie";
-        String lastName = "Corcoran";
-        String email = "robbie@robbie.com";
-        String password = "123456789";
-        String repeatedPassword = "123456789";
 
 //        Act
         User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString());
@@ -35,4 +43,21 @@ public class UserServiceTest {
 
     }
 
+    @DisplayName("Empty first name throws correct exception. ")
+    @Test
+    void testCreatUser_whenUserFirstNameIsEmpty_ThrowIllegalArgumentException() {
+//        Arrange
+        UserService userService = new UserServiceImpl();
+
+        String firstName = "";
+        String expectedExceptionMessage = "First name cannot be empty.";
+
+//        Act & Assert
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            userService.createUser(firstName, lastName, email, UUID.randomUUID().toString());
+        }, "Missing first name should throw IllegalArgumentException.");
+
+//        Assert
+        assertEquals(expectedExceptionMessage, thrown.getMessage(), "IllegalArgumentException did not display the correct message");
+    }
 }
