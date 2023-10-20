@@ -5,13 +5,17 @@ import com.rawtech.mockito.model.User;
 
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
+    EmailVerificationService emailVerificationService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+
+    public UserServiceImpl(UserRepository userRepository, EmailVerificationService emailVerificationService) {
         this.userRepository = userRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @Override
     public User createUser(String firstName, String lastName, String email, String userId, String password, String repeatedPassword){
+
         if(firstName.isBlank() || firstName.isEmpty()){
             throw new IllegalArgumentException("First name cannot be empty.");
         }
@@ -28,6 +32,12 @@ public class UserServiceImpl implements UserService {
         }
 
         if(!isUserCreated) throw new UserServiceException("Could not create user");
+
+        try {
+            emailVerificationService.scheduleEmailVerification(user);
+        } catch (RuntimeException ex) {
+            throw new UserServiceException(ex.getMessage());
+        }
 
         return user;
     }

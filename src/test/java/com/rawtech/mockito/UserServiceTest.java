@@ -102,7 +102,5 @@ public class UserServiceTest {
 
 //        Act & Assert
         assertThrows(UserServiceException.class, () -> userService.createUser(firstName, lastName, email, userId, password, repeatPassword), "Should have thrown UserServiceException instead.");
-
-//        Assert
     }
 }
