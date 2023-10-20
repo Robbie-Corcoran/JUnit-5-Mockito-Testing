@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
@@ -18,6 +17,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("EqualsWithItself")
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
@@ -101,9 +101,7 @@ public class UserServiceTest {
         when(userRepository.save(any(User.class))).thenThrow(RuntimeException.class);
 
 //        Act & Assert
-        assertThrows(UserServiceException.class, () -> {
-            userService.createUser(firstName, lastName, email, userId, password, repeatPassword);
-        }, "Should have thrown UserServiceException instead.");
+        assertThrows(UserServiceException.class, () -> userService.createUser(firstName, lastName, email, userId, password, repeatPassword), "Should have thrown UserServiceException instead.");
 
 //        Assert
     }
