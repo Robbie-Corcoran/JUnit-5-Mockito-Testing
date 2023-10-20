@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -42,7 +43,7 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObjectAndDetails() {
 //        Arrange
-        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(true);
+        when(userRepository.save(any(User.class))).thenReturn(true);
 
 //        Act
         User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword);
@@ -53,7 +54,8 @@ public class UserServiceTest {
         assertEquals(user.getFirstName(), user.getFirstName(), "User's'first name is not correct ");
         assertEquals(user.getLastName(), user.getLastName(), "User's last name is not correct ");
         assertEquals(user.getEmail(), user.getEmail(), "User's email is not correct ");
-
+        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository, atMostOnce()).save(any(User.class));
     }
 
     @DisplayName("Empty first name throws correct exception.")
@@ -87,6 +89,5 @@ public class UserServiceTest {
 
 //        Assert
         assertEquals(expectedExceptionMessage, thrown.getMessage(), "IllegalArgumentException did not display the correct message");
-
     }
 }
