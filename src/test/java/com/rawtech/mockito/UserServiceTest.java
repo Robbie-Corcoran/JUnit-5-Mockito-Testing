@@ -1,7 +1,6 @@
 package com.rawtech.mockito;
 
 import com.rawtech.mockito.data.UserRepository;
-import com.rawtech.mockito.data.UserRepositoryImpl;
 import com.rawtech.mockito.service.*;
 import com.rawtech.mockito.model.User;
 import org.junit.jupiter.api.BeforeEach;
