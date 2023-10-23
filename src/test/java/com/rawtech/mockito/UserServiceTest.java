@@ -114,9 +114,12 @@ public class UserServiceTest {
         when(userRepository.save(any(User.class)))
                 .thenReturn(true);
 
-        doThrow( EmailNotificationServiceException.class)
+        doThrow(EmailNotificationServiceException.class)
                 .when(emailVerificationService)
                 .scheduleEmailVerification(any(User.class));
+
+//        This will make the test fail as it overwrites the lines about. It literally lets it not to invoke the method, to DO NOTHING!
+        doNothing().when(emailVerificationService).scheduleEmailVerification(any(User.class));
 
 //        Act & Assert
         assertThrows(UserServiceException.class,
