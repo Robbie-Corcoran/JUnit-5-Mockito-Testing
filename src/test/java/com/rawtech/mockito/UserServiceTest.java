@@ -1,8 +1,7 @@
 package com.rawtech.mockito;
 
 import com.rawtech.mockito.data.UserRepository;
-import com.rawtech.mockito.service.UserServiceException;
-import com.rawtech.mockito.service.UserServiceImpl;
+import com.rawtech.mockito.service.*;
 import com.rawtech.mockito.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +22,9 @@ public class UserServiceTest {
 
     @InjectMocks
     UserServiceImpl userService;
+
+    @Mock
+    EmailVerificationServiceImpl emailVerificationService;
     @Mock
     UserRepository userRepository;
     String firstName;
@@ -46,7 +48,8 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObjectAndDetails() {
 //        Arrange
-        when(userRepository.save(any(User.class))).thenReturn(true);
+        when(userRepository.save(any(User.class)))
+                .thenReturn(true);
 
 //        Act
         User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword);
@@ -63,7 +66,7 @@ public class UserServiceTest {
 
     @DisplayName("Empty first name throws correct exception.")
     @Test
-    void testCreatUser_whenUserFirstNameIsEmpty_ThrowIllegalArgumentException() {
+    void testCreateUser_whenUserFirstNameIsEmpty_ThrowIllegalArgumentException() {
 //        Arrange
         String firstName = "";
         String expectedExceptionMessage = "First name cannot be empty.";
@@ -96,11 +99,56 @@ public class UserServiceTest {
 
     @DisplayName("If save() causes RuntimeException, a UserServiceException is thrown.")
     @Test
-    void testCreateUserMethod_WhenSaveMethodThrowsException_thenThrowsUserServiceException() {
+    void testCreateUser_WhenSaveMethodThrowsException_thenThrowsUserServiceException() {
 //        Arrange
-        when(userRepository.save(any(User.class))).thenThrow(RuntimeException.class);
+        when(userRepository.save(any(User.class)))
+                .thenThrow(RuntimeException.class);
 
 //        Act & Assert
-        assertThrows(UserServiceException.class, () -> userService.createUser(firstName, lastName, email, userId, password, repeatPassword), "Should have thrown UserServiceException instead.");
+        assertThrows(UserServiceException.class, () -> userService
+                .createUser(firstName, lastName, email, userId, password, repeatPassword),
+                "Should have thrown UserServiceException instead.");
+    }
+
+    @DisplayName("EmailNotificationException is handled.")
+    @Test
+    void testCreateUser_whenEmailNotificationExceptionIsThrown_throwsUserServiceException() {
+//        Arrange
+        when(userRepository.save(any(User.class)))
+                .thenReturn(true);
+
+        doThrow(EmailNotificationServiceException.class)
+                .when(emailVerificationService)
+                .scheduleEmailVerification(any(User.class));
+
+//        This will make the test fail as it overwrites the lines about. It literally lets it not to invoke the method, to DO NOTHING!
+//        doNothing().when(emailVerificationService).scheduleEmailVerification(any(User.class));
+
+//        Act & Assert
+        assertThrows(UserServiceException.class,
+                () -> userService.createUser(firstName, lastName, email, userId, password, repeatPassword),
+                "Should have thrown a UserServiceException instead.");
+
+//        Assert
+        verify(emailVerificationService, times(1)).scheduleEmailVerification(any(User.class)) ;
+    }
+
+    @DisplayName("Schedule email confirmation is executed.")
+    @Test
+    void testCreateUser_whenUserCreated_scheduleEmailConfirmation() {
+//        Arrange
+        when(userRepository.save(any(User.class)))
+                .thenReturn(true);
+
+        doCallRealMethod()
+                .when(emailVerificationService)
+                .scheduleEmailVerification(any(User.class));
+
+//        Act
+        userService.createUser(firstName, lastName, email, userId, password, repeatPassword);
+
+
+//        Assert
+        verify(emailVerificationService, times(1)).scheduleEmailVerification(any(User.class));
     }
 }
