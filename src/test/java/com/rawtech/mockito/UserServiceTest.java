@@ -128,6 +128,5 @@ public class UserServiceTest {
 
 //        Assert
         verify(emailVerificationService, times(1)).scheduleEmailVerification(any(User.class)) ;
-
     }
 }
