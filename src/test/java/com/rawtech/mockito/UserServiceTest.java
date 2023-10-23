@@ -49,7 +49,8 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObjectAndDetails() {
 //        Arrange
-        when(userRepository.save(any(User.class))).thenReturn(true);
+        when(userRepository.save(any(User.class)))
+                .thenReturn(true);
 
 //        Act
         User user = userService.createUser(firstName, lastName, email, UUID.randomUUID().toString(), password, repeatPassword);
@@ -101,10 +102,13 @@ public class UserServiceTest {
     @Test
     void testCreateUser_WhenSaveMethodThrowsException_thenThrowsUserServiceException() {
 //        Arrange
-        when(userRepository.save(any(User.class))).thenThrow(RuntimeException.class);
+        when(userRepository.save(any(User.class)))
+                .thenThrow(RuntimeException.class);
 
 //        Act & Assert
-        assertThrows(UserServiceException.class, () -> userService.createUser(firstName, lastName, email, userId, password, repeatPassword), "Should have thrown UserServiceException instead.");
+        assertThrows(UserServiceException.class, () -> userService
+                .createUser(firstName, lastName, email, userId, password, repeatPassword),
+                "Should have thrown UserServiceException instead.");
     }
 
     @DisplayName("EmailNotificationException is handled.")
@@ -128,5 +132,24 @@ public class UserServiceTest {
 
 //        Assert
         verify(emailVerificationService, times(1)).scheduleEmailVerification(any(User.class)) ;
+    }
+
+    @DisplayName("Schedule email confirmation is executed.")
+    @Test
+    void testCreateUser_whenUserCreated_scheduleEmailConfirmation() {
+//        Arrange
+        when(userRepository.save(any(User.class)))
+                .thenReturn(true);
+
+        doCallRealMethod()
+                .when(emailVerificationService)
+                .scheduleEmailVerification(any(User.class));
+
+//        Act
+        userService.createUser(firstName, lastName, email, userId, password, repeatPassword);
+
+
+//        Assert
+        verify(emailVerificationService, times(1)).scheduleEmailVerification(any(User.class));
     }
 }
