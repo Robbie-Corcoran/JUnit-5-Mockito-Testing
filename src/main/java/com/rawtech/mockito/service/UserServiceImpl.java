@@ -3,7 +3,7 @@ package com.rawtech.mockito.service;
 import com.rawtech.mockito.data.UserRepository;
 import com.rawtech.mockito.model.User;
 
-public class UserServiceImpl implements UserService {
+public class  UserServiceImpl implements UserService {
     UserRepository userRepository;
     EmailVerificationService emailVerificationService;
 
