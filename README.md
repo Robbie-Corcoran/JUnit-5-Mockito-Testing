@@ -31,6 +31,6 @@ Hello fellow developers! 👋 I've successfully completed this comprehensive cou
 
 If you're a Java developer looking to upskill in unit testing, I highly recommend enrolling in this course. It's not just about writing tests; it's about mastering the art of testing for resilient and maintainable code.
 
-[Testing Java with JUnit 5 & Mockito](https://https://www.udemy.com/course/testing-java-code-with-junit-5-and-mockito/)
+[Testing Java with JUnit 5 & Mockito](https://www.udemy.com/course/testing-java-code-with-junit-5-and-mockito/)
 
 Thank you for this incredible learning experience! 🚀
