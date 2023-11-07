@@ -1,7 +1,8 @@
 # JUnit 5 & Mockito Testing
 ## My Journey
 
-Hello fellow developers! 👋 I've successfully completed this comprehensive course, and I'm excited to share my learning journey and key takeaways.
+Hello fellow developers! 👋 
+I've successfully completed this comprehensive course, and I'm excited to share my learning journey and key takeaways.
 
 ### What I've Learned
 
